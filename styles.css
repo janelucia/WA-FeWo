@@ -1,0 +1,43 @@
+body {
+    font-family: sans-serif;
+
+}
+
+h1 {
+    font-size: 16px;
+    text-align: center;
+}
+
+img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.fewo-list-item-wrapper {
+    border-width: 2px;
+    border-color: lightblue;
+    border-style: solid;
+    border-radius: 8px;
+    width: 50%;
+    font-size: 12px;
+}
+
+.fewo-list-item-wrapper h2 {
+    font-size: small;
+    margin: 0;
+}
+
+.fewo-list.item.wrapper p {
+    margin: 0;
+}
+
+.fewo-list-item-wrapper a {
+    text-decoration: none;
+    padding: 4px 4px;
+    border: rgb(0, 166, 255) 1px solid;
+    border-radius: 8px;
+    display: block;
+    text-align: center;
+    margin: 4px 4px;
+    color: black;
+}
