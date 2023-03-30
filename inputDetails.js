@@ -1,18 +1,30 @@
 const inputDetails = {
+  emojiMapper: {
+    characteristics: {
+      type: '🏠',
+      city: '🌆',
+      max_guest: '🧑',
+      min_night: '💤',
+      beds: '🛏️',
+      bathrooms: '🛁',
+    },
+  },
   fewos: [
     {
       id: 1,
       name: 'Ferienwohnung auf Sylt',
-      type: 'Strandhütte',
-      city: 'Sylt',
+      characteristics: {
+        type: 'Strandhütte',
+        city: 'Sylt',
+        max_guest: 'max. 5 Gäste',
+        min_night: 'min. 3 Nächte',
+        beds: '3 Betten',
+        bathrooms: '2 Badezimmer',
+      },
       price_night: 55,
-      max_guest: 5,
-      min_night: 3,
-      beds: 3,
-      bathrooms: 2,
       description:
         'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-      landlord: {
+      host: {
         name: 'Katha Who',
         origin: 'De',
         answer_time: 5,
@@ -26,12 +38,14 @@ const inputDetails = {
       },
       reviews: {
         review_num: 27,
-        first:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-        second:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-        third:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+        review_text: {
+          first:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+          second:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+          third:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+        },
       },
       img: 'https://www.dansk.de/media/dzdg3aqt/ferienhaus-sus12-0227-001.jpg?rxy=0.4179052607010677,0.60796633573241377&width=576&height=320&rnd=132785854224070000',
       alt: 'Ferienwohnung auf Sylt',
@@ -39,16 +53,18 @@ const inputDetails = {
     {
       id: 2,
       name: 'Ferienwohnung auf Amrum',
-      type: 'Wohnung',
-      city: 'Amrum',
+      characteristics: {
+        type: 'Wohnung',
+        city: 'Amrum',
+        max_guest: 'max. 2 Gäste',
+        min_night: 'min. 1 Nächte',
+        beds: '1 Betten',
+        bathrooms: '1 Badezimmer',
+      },
       price_night: 45,
-      max_guest: 2,
-      min_night: 1,
-      beds: 1,
-      bathrooms: 1,
       description:
         'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-      landlord: {
+      host: {
         name: 'Ola When',
         origin: 'De',
         answer_time: 10,
@@ -62,12 +78,14 @@ const inputDetails = {
       },
       reviews: {
         review_num: 38,
-        first:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-        second:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-        third:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+        review_text: {
+          first:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+          second:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+          third:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+        },
       },
       img: 'https://www.novasol.de/sites/default/files/styles/body_large/public/inline-images/dsh455_main_05_olpenitz_2.jpg?itok=ck5k-YSA',
       alt: 'Ferienwohnung auf Amrum',
@@ -75,16 +93,18 @@ const inputDetails = {
     {
       id: 3,
       name: 'Ferienhaus auf Föhr',
-      type: 'Strandhaus',
-      city: 'Föhr',
+      characteristics: {
+        type: 'Strandhaus',
+        city: 'Föhr',
+        max_guest: 'max. 10 Gäste',
+        min_night: 'min. 2 Nächte',
+        beds: '6 Betten',
+        bathrooms: '3 Badezimmer',
+      },
       price_night: 50,
-      max_guest: 10,
-      min_night: 2,
-      beds: 6,
-      bathrooms: 3,
       description:
         'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-      landlord: {
+      host: {
         name: 'Michael Knows',
         origin: 'De',
         answer_time: 20,
@@ -98,12 +118,14 @@ const inputDetails = {
       },
       reviews: {
         review_num: 23,
-        first:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-        second:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-        third:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+        review_text: {
+          first:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+          second:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+          third:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+        },
       },
       img: 'https://www.holidayextras.com/de/images/hx-bootstrap/ferienhaus-an-der-ostsee.jpeg',
       alt: 'Haus am Strand mit einem Boot im Vordergrund',
@@ -111,16 +133,18 @@ const inputDetails = {
     {
       id: 4,
       name: 'Ferienhaus auf Pellworm',
-      type: 'Strandhaus',
-      city: 'Pellworm',
+      characteristics: {
+        type: 'Strandhaus',
+        city: 'Pellworm',
+        max_guest: 'max. 4 Gäste',
+        min_night: 'min. 2 Nächte',
+        beds: '2 Betten',
+        bathrooms: '2 Badezimmer',
+      },
       price_night: 43,
-      max_guest: 4,
-      min_night: 2,
-      beds: 2,
-      bathrooms: 2,
       description:
         'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-      landlord: {
+      host: {
         name: 'Daniel What',
         origin: 'De',
         answer_time: 2,
@@ -134,30 +158,33 @@ const inputDetails = {
       },
       reviews: {
         review_num: 19,
-        first:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-        second:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-        third:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+        review_text: {
+          first:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+          second:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+          third:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+        },
       },
       img: 'https://www.urlaubstracker.de/wp-content/uploads/2020/05/strandhaus-la-vela-front.jpg',
       alt: 'Blaues Feirenhaus mit Strandkorb',
     },
-    ,
     {
       id: 5,
       name: 'Ferienwohnung auf Nordstrand',
-      type: 'Wohnung',
-      city: 'Nordstrand',
+      characteristics: {
+        type: 'Wohnung',
+        city: 'Nordstrand',
+        max_guest: 'max. 2 Gäste',
+        min_night: 'min. 1 Nächte',
+        beds: '2 Betten',
+        bathrooms: '1 Badezimmer',
+      },
       price_night: 52,
-      max_guest: 2,
-      min_night: 1,
-      beds: 2,
-      bathrooms: 1,
       description:
         'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-      landlord: {
+      host: {
         name: 'Jessica Some',
         origin: 'De',
         answer_time: 30,
@@ -171,12 +198,14 @@ const inputDetails = {
       },
       reviews: {
         review_num: 42,
-        first:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-        second:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
-        third:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+        review_text: {
+          first:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+          second:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+          third:
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam',
+        },
       },
       img: 'https://online-reiseziele.de/sites/default/files/styles/regartfirst/public/images-regionen/24/urlaubsregion-reisebericht-nordstrand-004.jpg?itok=FoCuAaAt',
       alt: 'Hafen mit Häusern im Hintergrund',
