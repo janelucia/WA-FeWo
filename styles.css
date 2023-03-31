@@ -3,14 +3,66 @@ body {
   margin: 16px;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 h1 {
-  font-size: 16px;
+  font-size: 20px;
   text-align: center;
 }
 
 img {
   width: 100%;
   border-radius: 8px;
+}
+
+iframe {
+  border-radius: 8px;
+}
+
+footer {
+  text-align: center;
+  margin: 16px 0 8px;
+  padding-top: 8px;
+  border-top: 2px solid lightblue;
+}
+
+.header-details {
+  padding: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.header-details img {
+  width: 32px;
+  height: 32px;
+}
+
+.header-details a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  padding: 4px 8px;
+  background: #c9e5c3;
+  border-radius: 8px;
+  width: fit-content;
+  align-self: center;
+}
+
+.header-details a:hover {
+  background: #a0d995;
+  transition: all 0.5s ease-in;
+  border-radius: 8px;
+}
+
+.logo {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .fewo-list-item-wrapper {
@@ -42,9 +94,26 @@ img {
   color: black;
 }
 
+.fewo-header {
+  position: absolute;
+  background-color: #4cabbcf1;
+  padding: 8px;
+  top: 0;
+  left: 0;
+  transform: translateY(275%) translateX(10%);
+  border-radius: 8px;
+  color: white;
+}
+
+.fewo-header h1 {
+  margin: 0;
+  font-weight: 400;
+}
+
 .details-div {
   display: flex;
-  column-gap: 16px;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .info-left {
@@ -55,7 +124,9 @@ img {
 
 .characteristics-wrapper {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
 }
 
 .characteristics-wrapper span {
@@ -86,6 +157,28 @@ img {
   padding: 8px 16px;
 }
 
+.location {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.location a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  padding: 4px 8px;
+  background: #c9e5c3;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.location a:hover {
+  background: #a0d995;
+  transition: all 0.5s ease-in;
+  border-radius: 8px;
+}
+
 .info-right {
   width: 100%;
   display: flex;
@@ -93,10 +186,24 @@ img {
   row-gap: 16px;
 }
 
+.calendar-price {
+  outline: 4px solid #a0d995;
+  padding-bottom: 8px;
+  border-radius: 8px;
+  flex: 1;
+}
+
+.calendar-price p {
+  text-align: end;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding-right: 16px;
+}
+
 .calendar-wrapper {
   width: 100%;
   background-color: #a0d995;
-  border-radius: 8px;
+  border-radius: 8px 0 0;
 }
 
 .calendar-head {
@@ -136,6 +243,7 @@ img {
   list-style: none;
   text-align: center;
   padding: 0;
+  margin: 0 0 8px;
 }
 
 .calendar-body ul li {
@@ -145,7 +253,7 @@ img {
 
 .days li {
   cursor: pointer;
-  margin-top: 30px;
+  margin-top: 16px;
   z-index: 1;
 }
 
@@ -169,33 +277,124 @@ img {
   font-weight: 600;
 }
 
-.days {
-  margin-bottom: 20px;
-}
-
-.sidepanel-div {
-  background-color: #f6e3c5;
-  padding-bottom: 8px;
-  border-radius: 8px;
-}
-
-.sidepanel-div p {
-  text-align: end;
-  font-size: 1.25rem;
-  font-weight: 600;
-  padding-right: 16px;
-}
-
-.host-section {
+.host-div {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  row-gap: 8px;
   height: 100%;
-  background: #f6e3c5;
   border-radius: 8px;
+  flex: 1;
+  align-items: center;
 }
 
 .host-img-wrapper {
   width: 50%;
-  padding: 8px 8px 0;
+}
+
+.host-div p {
+  padding-right: 8px;
+  margin: 0;
+}
+
+.host-div p {
+  font-weight: bold;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.one-review-wrapper {
+  border: 1px solid #c7c6c1;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.one-review-wrapper * {
+  margin: 0;
+}
+
+.author {
+  font-weight: bold;
+}
+
+.link-reviews {
+  display: flex;
+  align-items: center;
+}
+
+.back-btn {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  padding: 4px 8px;
+  background: #c9e5c3;
+  border-radius: 8px;
+  width: fit-content;
+  align-self: center;
+}
+
+.back-btn:hover {
+  background: #a0d995;
+  transition: all 0.5s ease-in;
+  border-radius: 8px;
+}
+
+@media (min-width: 576px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  .header-details {
+    justify-content: space-between;
+  }
+
+  .fewo-header {
+    transform: translateY(175%) translateX(8%);
+  }
+
+  .info-right {
+    flex-direction: row-reverse;
+  }
+
+  .review-list {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 992px) {
+  .details-div {
+    flex-direction: row;
+  }
+
+  .characteristics-wrapper {
+    justify-content: space-between;
+  }
+
+  .info-right {
+    flex-direction: column;
+  }
+
+  .host-div {
+    align-items: center;
+  }
+
+  .calendar-price {
+    flex: 0;
+  }
+
+  .review-header {
+    justify-content: flex-start;
+    column-gap: 16px;
+  }
 }
