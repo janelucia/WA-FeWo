@@ -4,6 +4,13 @@ function calendar(selectMonth) {
   let date = new Date();
   let currYear = date.getFullYear();
   let currMonth = selectMonth ? selectMonth : date.getMonth();
+  let lastMonth = selectMonth ? selectMonth : date.getMonth() - 1;
+  let nextMonth = selectMonth ? selectMonth : date.getMonth() + 1;
+  let firstDateOfMonth = new Date(currYear, currMonth, 1);
+  let firstDayIndexOfMonth = firstDateOfMonth.getDay() - 1;
+
+  console.log(lastMonth);
+  console.log(nextMonth);
 
   const months = [
     'Januar',
@@ -31,15 +38,36 @@ function calendar(selectMonth) {
   ];
 
   let currentMonth = months[currMonth];
-  let lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate(); //get last date of the month
+  let lastDateOfCurrMonth = new Date(currYear, currMonth + 1, 0).getDate(); //get last date of the month
+  let lastDateOfLastMonth = new Date(currYear, lastMonth + 1, 0).getDate();
 
-  let dayArr = [];
+  console.log('last day of last month' + lastDateOfLastMonth);
+  console.log('last day of curr month' + lastDateOfCurrMonth);
+  console.log(firstDayIndexOfMonth);
 
-  for (let i = 1; i < lastDateOfMonth; i++) {
-    dayArr[i - 1] = i;
+  const dayOverflow = lastDateOfLastMonth - firstDayIndexOfMonth;
+
+  let currMonthDayArr = [];
+  let lastMonthDayArr = [];
+
+  for (let i = dayOverflow; i < lastDateOfLastMonth; i++) {
+    lastMonthDayArr.push(i + 1);
   }
 
-  return { currentYear: currYear, currMonth, currentMonth, week, dayArr };
+  console.log(lastMonthDayArr);
+
+  for (let i = 1; i <= lastDateOfCurrMonth; i++) {
+    currMonthDayArr[i - 1] = i;
+  }
+
+  return {
+    currentYear: currYear,
+    currMonth,
+    currentMonth,
+    week,
+    currMonthDayArr,
+    lastMonthDayArr,
+  };
 }
 
 // calendar render
@@ -79,8 +107,21 @@ function renderCalendar() {
   });
 
   const dayList = addDetail('ul', 'days', calendarBody);
-  calendarObj.dayArr.map((date) => {
+  calendarObj.lastMonthDayArr.map((date) => {
+    const dayLi = addDetail('li', 'inactive', dayList);
+    dayLi.innerText = date;
+  });
+  calendarObj.currMonthDayArr.map((date) => {
     const dayLi = addDetail('li', null, dayList);
     dayLi.innerText = date;
+
+    if (10 <= date && date <= 20) {
+      dayLi.classList.add('occupied');
+      if (date === 10) {
+        dayLi.classList.add('occupied-first');
+      } else if (date === 20) {
+        dayLi.classList.add('occupied-last');
+      }
+    }
   });
 }
