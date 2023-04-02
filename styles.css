@@ -3,12 +3,6 @@ body {
   margin: 16px;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
 h1 {
   font-size: 20px;
   text-align: center;
@@ -35,6 +29,8 @@ footer {
   display: flex;
   gap: 8px;
   align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid lightblue;
 }
 
 .header-details img {
@@ -65,34 +61,67 @@ footer {
   align-items: center;
 }
 
+.fewo-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
 .fewo-list-item-wrapper {
-  border-width: 2px;
-  border-color: lightblue;
-  border-style: solid;
+  background: #f6e3c5;
   border-radius: 8px;
-  width: 50%;
+  width: 300px;
   font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  justify-content: space-between;
+  padding: 4px;
+}
+
+.fewo-list-item-wrapper img {
+  flex: 1;
 }
 
 .fewo-list-item-wrapper h2 {
-  font-size: small;
+  font-size: large;
   margin: 0;
 }
 
-.fewo-list.item.wrapper p {
+.fewo-list-item-wrapper p, span {
+  font-size: medium;
   margin: 0;
+}
+
+.fewo-list-info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.price-stars {
+  display: flex;
+  justify-content: space-between;
 }
 
 .fewo-list-item-wrapper a {
   text-decoration: none;
+  font-size: medium;
   padding: 4px 4px;
-  border: rgb(0, 166, 255) 1px solid;
+  border: #ecb151 1px solid;
   border-radius: 8px;
   display: block;
   text-align: center;
-  margin: 4px 4px;
+  margin: 8px 4px 4px;
   color: black;
 }
+
+.fewo-list-item-wrapper a:hover {
+  background: #ecb151;
+  color: white;
+}
+
 
 .fewo-header {
   position: absolute;
@@ -100,20 +129,27 @@ footer {
   padding: 8px;
   top: 0;
   left: 0;
-  transform: translateY(275%) translateX(10%);
+  transform: translateY(215%) translateX(15%);
   border-radius: 8px;
-  color: white;
 }
 
 .fewo-header h1 {
   margin: 0;
   font-weight: 400;
+  color: white
+}
+
+.about-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .details-div {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding-top: 8px;
 }
 
 .info-left {
@@ -187,7 +223,7 @@ footer {
 }
 
 .calendar-price {
-  outline: 4px solid #a0d995;
+  border: 4px solid #a0d995;
   padding-bottom: 8px;
   border-radius: 8px;
   flex: 1;
@@ -203,7 +239,6 @@ footer {
 .calendar-wrapper {
   width: 100%;
   background-color: #a0d995;
-  border-radius: 8px 0 0;
 }
 
 .calendar-head {
@@ -355,10 +390,6 @@ footer {
     font-size: 32px;
   }
 
-  .header-details {
-    justify-content: space-between;
-  }
-
   .fewo-header {
     transform: translateY(175%) translateX(8%);
   }
@@ -373,6 +404,9 @@ footer {
 }
 
 @media (min-width: 992px) {
+  h1 {
+    text-align: left;
+  }
   .details-div {
     flex-direction: row;
   }
