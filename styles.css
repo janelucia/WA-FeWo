@@ -220,6 +220,7 @@ footer {
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   row-gap: 16px;
   flex: 1;
 }
@@ -229,6 +230,7 @@ footer {
   padding-bottom: 8px;
   border-radius: 8px;
   flex: 1;
+  max-width: 380px;
 }
 
 .calendar-price p {
@@ -409,7 +411,7 @@ footer {
   border-radius: 8px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 768px) {
   h1 {
     font-size: 32px;
   }
@@ -425,6 +427,8 @@ footer {
   .review-list {
     flex-direction: row;
   }
+
+  
 }
 
 @media (min-width: 992px) {
