@@ -1,6 +1,6 @@
 // calendar Funktion
 
-function calendar(selectMonth) {
+function calendarCreate(selectMonth) {
   let date = new Date();
   let currYear = date.getFullYear();
   let currMonth = selectMonth ? selectMonth : date.getMonth();
@@ -73,7 +73,7 @@ function calendar(selectMonth) {
 // calendar render
 
 function renderCalendar() {
-  const calendarObj = calendar();
+  const calendarObj = calendarCreate();
 
   const calendarWrapper = addDetail(
     'div',

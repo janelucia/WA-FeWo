@@ -89,7 +89,8 @@ footer {
   margin: 0;
 }
 
-.fewo-list-item-wrapper p, span {
+.fewo-list-item-wrapper p,
+span {
   font-size: medium;
   margin: 0;
 }
@@ -122,7 +123,6 @@ footer {
   color: white;
 }
 
-
 .fewo-header {
   position: absolute;
   background-color: #4cabbcf1;
@@ -136,7 +136,7 @@ footer {
 .fewo-header h1 {
   margin: 0;
   font-weight: 400;
-  color: white
+  color: white;
 }
 
 .about-main {
@@ -188,6 +188,11 @@ footer {
 .features-list {
   list-style: '✓';
   padding: 0px 32px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 500px;
+  overflow: hidden;
 }
 
 .features-list li {
@@ -214,6 +219,14 @@ footer {
   background: #a0d995;
   transition: all 0.5s ease-in;
   border-radius: 8px;
+}
+
+.location-info h2 {
+  margin-top: 0;
+}
+
+.location-info p {
+  margin-top: 0;
 }
 
 .info-right {
@@ -320,12 +333,12 @@ footer {
   background: #ecb151;
 }
 
-.days .occupied.occupied-first::before{
+.days .occupied.occupied-first::before {
   border-radius: 15px 0 0 15px;
   padding-left: 0;
 }
 
-.days .occupied.occupied-last::before{
+.days .occupied.occupied-last::before {
   border-radius: 0 15px 15px 0;
   padding-right: 0;
 }
@@ -345,20 +358,26 @@ footer {
   height: 100%;
   border-radius: 8px;
   flex: 1;
-  align-items: center;
 }
 
 .host-img-wrapper {
   width: 50%;
+  align-self: center;
+}
+
+.host-name {
+  font-weight: bold;
+  align-self: center;
+}
+
+.host-super {
+  font-weight: bold;
+  align-self: center;
 }
 
 .host-div p {
   padding-right: 8px;
   margin: 0;
-}
-
-.host-div p {
-  font-weight: bold;
 }
 
 .review-header {
@@ -427,8 +446,6 @@ footer {
   .review-list {
     flex-direction: row;
   }
-
-  
 }
 
 @media (min-width: 992px) {
@@ -445,10 +462,6 @@ footer {
 
   .info-right {
     flex-direction: column;
-  }
-
-  .host-div {
-    align-items: center;
   }
 
   .calendar-price {
