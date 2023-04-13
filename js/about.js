@@ -22,7 +22,10 @@ async function getFewoDetails(e) {
   let params = new URL(document.location).searchParams;
   let id = parseInt(params.get('id'));
   const details = (await csvData(listingCsvUrl)).data[id];
-  console.log(details);
+  const getReviews = await csvData(reviewsCsvUrl);
+  const reviewsObj = Object.entries(getReviews);
+  console.log(reviewsObj);
+
   return details;
 }
 
@@ -116,7 +119,7 @@ async function addAboutPageDetails(details) {
   renderCalendar();
 
   const priceNight = addDetail('p', 'price', calendarAndPrice);
-  priceNight.innerText = `${details.price}€ / Nacht`;
+  priceNight.innerText = `${details.price} / Nacht`;
 
   const hostImgWrapper = addDetail('div', 'host-img-wrapper', hostDiv);
   const hostImg = addDetail('img', 'host-img', hostImgWrapper);
