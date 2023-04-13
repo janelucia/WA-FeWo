@@ -49,7 +49,7 @@ function addOverviewDetail(fewo, i) {
 
   const fewoStarsDiv = addDetail('div', null, fewoPreisStars);
 
-  for (let i = 0; i < fewo.review_scores_value; i++) {
+  for (let i = 1; i < fewo.review_scores_value; i++) {
     const fewoBewertung = addDetail('span', null, fewoStarsDiv);
     fewoBewertung.innerText = '★';
   }

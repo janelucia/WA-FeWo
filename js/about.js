@@ -22,9 +22,9 @@ async function getFewoDetails(e) {
   let params = new URL(document.location).searchParams;
   let id = parseInt(params.get('id'));
   const details = (await csvData(listingCsvUrl)).data[id];
-  const getReviews = await csvData(reviewsCsvUrl).data;
-  //   const reviewsObj = Object.entries(getReviews);
-  //   console.log(reviewsObj);
+  const getReviews = (await csvData(reviewsCsvUrl)).data;
+  const reviews = getReviews.filter((r) => details.id === r.listings_id);
+  console.log(reviews);
 
   return details;
 }
