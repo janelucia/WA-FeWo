@@ -5,10 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
-    <script src="inputDetails.js" defer></script>
-    <script src="calendar.js" defer></script>
-    <script src="csvToJson.js" defer></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/csvToJson.js" defer></script>
+    <script src="js/overview.js" defer></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"
       integrity="sha512-dfX5uYVXzyU8+KHqj8bjo7UkOdg18PaOtpa48djpNbZHwExddghZ+ZmzWT06R5v6NSk3ZUfsH6FNEDepLx9hPQ=="
@@ -21,97 +20,17 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <title>Ferienwohnungen Nordseeinseln</title>
+    <title>Ferienwohnungen</title>
   </head>
   <body>
     <header class="header-details">
       <div class="logo">
-        <img src="lupe.png" alt="Logo" />
+        <img src="assets/lupe.png" alt="Logo" />
       </div>
     </header>
     <main>
-      <h1>Ferienwohnungen auf den Nordseeinseln</h1>
-      <div class="fewo-list">
-        <div class="fewo-list-item-wrapper">
-          <img
-            src="https://www.dansk.de/media/dzdg3aqt/ferienhaus-sus12-0227-001.jpg?rxy=0.4179052607010677,0.60796633573241377&width=576&height=320&rnd=132785854224070000"
-          />
-          <div class="fewo-list-info">
-            <h2>Ferienwohnung auf Sylt</h2>
-            <p>Strandhütte</p>
-            <p>Sylt</p>
-            <div class="price-stars">
-              <span>55€ p.N.</span>
-              <span id="stars">★★★★★ (27)</span>
-            </div>
-          </div>
-          <a href="./about.html?id=1" class="details-btn"> mehr anzeigen</a>
-        </div>
-        <br />
-        <div class="fewo-list-item-wrapper">
-          <img
-            src="https://www.novasol.de/sites/default/files/styles/body_large/public/inline-images/dsh455_main_05_olpenitz_2.jpg?itok=ck5k-YSA"
-          />
-          <div class="fewo-list-info">
-            <h2>Ferienwohnung auf Amrum</h2>
-            <p>Wohnung</p>
-            <p>Amrum</p>
-            <div class="price-stars">
-              <span>45€ p.N.</span>
-              <span id="stars">★★★★ (38)</span>
-            </div>
-          </div>
-          <a href="./about.html?id=2" class="details-btn">mehr anzeigen</a>
-        </div>
-        <br />
-        <div class="fewo-list-item-wrapper">
-          <img
-            src="https://www.holidayextras.com/de/images/hx-bootstrap/ferienhaus-an-der-ostsee.jpeg"
-          />
-          <div class="fewo-list-info">
-            <h2>Ferienhaus auf Föhr</h2>
-            <p>Strandhaus</p>
-            <p>Föhr</p>
-            <div class="price-stars">
-              <span>50€ p.N.</span>
-              <span id="stars">★★★ (23)</span>
-            </div>
-          </div>
-          <a href="./about.html?id=3" class="details-btn"> mehr anzeigen</a>
-        </div>
-        <br />
-        <div class="fewo-list-item-wrapper">
-          <img
-            src="https://www.urlaubstracker.de/wp-content/uploads/2020/05/strandhaus-la-vela-front.jpg"
-          />
-          <div class="fewo-list-info">
-            <h2>Ferienhaus auf Pellworm</h2>
-            <p>Strandhaus</p>
-            <p>Pellworm</p>
-            <div class="price-stars">
-              <span>43€ p.N.</span>
-              <span id="stars">★★★★ (19)</span>
-            </div>
-          </div>
-          <a href="./about.html?id=4" class="details-btn"> mehr anzeigen</a>
-        </div>
-        <br />
-        <div class="fewo-list-item-wrapper">
-          <img
-            src="https://online-reiseziele.de/sites/default/files/styles/regartfirst/public/images-regionen/24/urlaubsregion-reisebericht-nordstrand-004.jpg?itok=FoCuAaAt"
-          />
-          <div class="fewo-list-info">
-            <h2>Ferienwohnung auf Nordstrand</h2>
-            <p>Wohnung</p>
-            <p>Nordstrand</p>
-            <div class="price-stars">
-              <span>52€ p.N.</span>
-              <span id="stars">★★★★★ (42)</span>
-            </div>
-          </div>
-          <a href="./about.html?id=5" class="details-btn"> mehr anzeigen</a>
-        </div>
-      </div>
+      <h1>Ferienwohnungen in Amsterdam</h1>
+      <div class="fewo-list"></div>
     </main>
     <footer>Made with ❤️ | by Katharina and Jane</footer>
   </body>

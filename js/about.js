@@ -1,4 +1,5 @@
 // Selectors
+
 const detailsHeader = document.querySelector('.fewo-header');
 const detailsButton = document.querySelector('.details-btn');
 const detailsDiv = document.querySelector('.details-div');
@@ -13,23 +14,7 @@ const calendarAndPrice = document.querySelector('.calendar-price');
 const reviewsDiv = document.querySelector('.reviews-div');
 const hostDiv = document.querySelector('.host-div');
 
-// Event Listeners
-
-document.addEventListener('DOMContentLoaded', () => {
-  const currentPath = window.location.pathname;
-
-  if (currentPath.endsWith('/about.html')) {
-    renderAboutPage();
-  }
-});
-
 // Functions
-
-async function renderAboutPage() {
-  const details = await getFewoDetails();
-  addAboutPageDetails(details);
-  document.title = details.name;
-}
 
 // richtige about Seite öffnen
 
@@ -39,6 +24,12 @@ async function getFewoDetails(e) {
   const details = (await csvData(listingCsvUrl)).data[id];
   console.log(details);
   return details;
+}
+
+async function renderAboutPage() {
+  const details = await getFewoDetails();
+  addAboutPageDetails(details);
+  document.title = details.name;
 }
 
 // hilft beim rendern der Seite
@@ -51,6 +42,8 @@ function addDetail(tagName, className, parent) {
   parent.appendChild(detail);
   return detail;
 }
+
+// add about page details
 
 async function addAboutPageDetails(details) {
   // header information

@@ -106,6 +106,10 @@ span {
   justify-content: space-between;
 }
 
+.overview-bewertung {
+  margin-left: 4px;
+}
+
 .fewo-list-item-wrapper a {
   text-decoration: none;
   font-size: medium;
