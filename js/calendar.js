@@ -10,7 +10,6 @@ const week = [
   'Sonntag',
 ];
 
-const calendarWrapper = addDetail('div', 'calendar-wrapper', calendarAndPrice);
 const calendarHead = addDetail('div', 'calendar-head', calendarWrapper);
 const headTitle = addDetail('p', null, calendarHead);
 
@@ -36,6 +35,7 @@ week.map((day) => {
 // calendar Funktion
 
 function calendarCreate(month) {
+  const calendarData = month.calendarData ? month.calendarData : month.data;
   let currYear = month.currYear;
   let currMonth = month.currMonth;
   let firstDateOfMonth = new Date(currYear, currMonth, 1);
@@ -57,8 +57,8 @@ function calendarCreate(month) {
   ];
 
   let currentMonth = months[currMonth];
-  let lastDateOfCurrMonth = new Date(currYear, currMonth + 1, 0).getDate(); //get last date of the month
-  let lastDateOfLastMonth = new Date(currYear, currMonth, 0).getDate();
+  let lastDateOfCurrMonth = new Date(currYear, currMonth + 1, 0).getDate(); //get last date of the current month
+  let lastDateOfLastMonth = new Date(currYear, currMonth, 0).getDate(); //get last date of the last month
 
   const dayOverflow = lastDateOfLastMonth - firstDayIndexOfMonth;
 
@@ -73,6 +73,24 @@ function calendarCreate(month) {
     currMonthDayArr[i - 1] = i;
   }
 
+  let filterMonthData = calendarData.filter(
+    (d) =>
+      parseInt(d.date.slice(5, 7)) === currMonth + 1 &&
+      parseInt(d.date.slice(0, 5)) === currYear
+  );
+
+  let filterLastMonth = calendarData.filter(
+    (d) =>
+      parseInt(d.date.slice(5, 7)) === currMonth &&
+      parseInt(d.date.slice(0, 5)) === currYear
+  );
+
+  let filterNextMonth = calendarData.filter(
+    (d) =>
+      parseInt(d.date.slice(5, 7)) === currMonth + 2 &&
+      parseInt(d.date.slice(0, 5)) === currYear
+  );
+
   renderCalendar({
     currYear,
     currMonth,
@@ -80,34 +98,57 @@ function calendarCreate(month) {
     week,
     currMonthDayArr,
     lastMonthDayArr,
+    filterMonthData,
+    filterLastMonth,
+    filterNextMonth,
+    calendarData,
   });
 }
 
 // dynamically change the calendar
 
 function renderCalendar(month) {
+  // has not every edge case
+  chevronLeft.classList.remove('unavailable');
+  chevronRight.classList.remove('unavailable');
+  if (month.filterLastMonth.length < 28) {
+    chevronLeft.classList.add('unavailable');
+  } else if (month.filterNextMonth.length < 28) {
+    chevronRight.classList.add('unavailable');
+  }
+
   headTitle.innerText = `${month.currentMonth} ${month.currYear}`;
 
   // Clear previously rendered calendar days
   dayList.innerHTML = '';
 
+  // compare day of calendar array to day of current iteration either for the last month and this month
   month.lastMonthDayArr.map((date) => {
     const dayLi = addDetail('li', 'inactive', dayList);
-    dayLi.innerText = date;
+    const day = addDetail('span', 'day', dayLi);
+    const price = addDetail('span', 'price', dayLi);
+    day.innerText = date;
+    const filterDay = month.filterLastMonth.filter(
+      (d) => parseInt(d.date.slice(8, 10)) === date
+    );
+    if (filterDay[0].available === 'f') {
+      dayLi.classList.add('occupied');
+    }
+    price.innerText = filterDay[0].price;
   });
 
   month.currMonthDayArr.map((date) => {
     const dayLi = addDetail('li', null, dayList);
-    dayLi.innerText = date;
-
-    if (10 <= date && date <= 20) {
+    const day = addDetail('span', 'day', dayLi);
+    const price = addDetail('span', 'price', dayLi);
+    day.innerText = date;
+    const filterDay = month.filterMonthData.filter(
+      (d) => parseInt(d.date.slice(8, 10)) === date
+    );
+    if (filterDay[0].available === 'f') {
       dayLi.classList.add('occupied');
-      if (date === 10) {
-        dayLi.classList.add('occupied-first');
-      } else if (date === 20) {
-        dayLi.classList.add('occupied-last');
-      }
     }
+    price.innerText = filterDay[0].price;
   });
 
   // Event listener
@@ -116,15 +157,22 @@ function renderCalendar(month) {
     chevronRight.removeEventListener('click', chevronRightListener);
     const currMonth = month.currMonth - 1 >= 0 ? month.currMonth - 1 : 11;
     const currYear = currMonth === 11 ? month.currYear - 1 : month.currYear;
-    calendarCreate({ currMonth, currYear });
+    // prevent clickevent on a month which is not bookable as time has passed
+    if (new Date().getMonth() > currMonth) {
+      return;
+    }
+    calendarCreate({ currMonth, currYear, calendarData: month.calendarData });
   };
 
   const chevronRightListener = () => {
     chevronLeft.removeEventListener('click', chevronLeftListener);
     chevronRight.removeEventListener('click', chevronRightListener);
+    if (month.filterNextMonth.length < 28) {
+      return;
+    }
     const currMonth = month.currMonth + 1 > 11 ? 0 : month.currMonth + 1;
     const currYear = currMonth === 0 ? month.currYear + 1 : month.currYear;
-    calendarCreate({ currMonth, currYear });
+    calendarCreate({ currMonth, currYear, calendarData: month.calendarData });
   };
 
   chevronLeft.addEventListener('click', chevronLeftListener);

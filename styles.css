@@ -242,23 +242,11 @@ span {
   flex: 1;
 }
 
-.calendar-price {
+.calendar-wrapper {
   border: 4px solid #a0d995;
   padding-bottom: 8px;
   border-radius: 8px;
-  flex: 1;
   max-width: 380px;
-}
-
-.calendar-price p {
-  text-align: end;
-  font-size: 1.25rem;
-  font-weight: 600;
-  padding-right: 16px;
-}
-
-.calendar-wrapper {
-  width: 100%;
   background-color: #a0d995;
 }
 
@@ -284,9 +272,13 @@ span {
   border-radius: 50%;
 }
 
-.icons span:hover {
+.icons span:not(.unavailable):hover {
   background: #6cc4a1;
   cursor: pointer;
+}
+
+.icons .unavailable {
+  visibility: hidden;
 }
 
 .calendar-body {
@@ -311,6 +303,8 @@ span {
   cursor: pointer;
   margin-top: 16px;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
 }
 
 .days li::before {
@@ -325,26 +319,22 @@ span {
   z-index: -1;
 }
 
-.days li:hover::before {
+.price {
+  font-size: small;
+  color: #5a5a5a;
+}
+
+.days li:not(.occupied):hover::before {
   background-color: #6cc4a1;
 }
 
-.days .occupied::before {
-  width: 30px;
-  height: 30px;
-  padding: 0 20px;
-  border-radius: 0%;
-  background: #ecb151;
+.occupied .day {
+  text-decoration: line-through;
+  color: #b46060;
 }
 
-.days .occupied.occupied-first::before {
-  border-radius: 15px 0 0 15px;
-  padding-left: 0;
-}
-
-.days .occupied.occupied-last::before {
-  border-radius: 0 15px 15px 0;
-  padding-right: 0;
+.occupied .price {
+  color: transparent;
 }
 
 .inactive {

@@ -10,7 +10,7 @@ const descriptionSection = document.querySelector('.description-wrapper');
 const featuresWrapper = document.querySelector('.features-wrapper');
 const locationDiv = document.querySelector('.location');
 const informationRight = document.querySelector('.info-right');
-const calendarAndPrice = document.querySelector('.calendar-price');
+const calendarWrapper = document.querySelector('.calendar-wrapper');
 const reviewsDiv = document.querySelector('.reviews-div');
 const hostDiv = document.querySelector('.host-div');
 
@@ -26,7 +26,6 @@ async function renderAboutPage() {
   const filterReviews = getReviews.filter((r) => r.listing_id === details.id);
   const getCalendar = (await csvData(calendarCsvUrl)).data;
   const filterCalendar = getCalendar.filter((c) => c.listing_id === details.id);
-  console.log(filterCalendar);
   addAboutPageDetails({ details, filterReviews, filterCalendar });
   document.title = details.name;
 }
@@ -117,9 +116,6 @@ async function addAboutPageDetails(details) {
     currYear: new Date().getFullYear(),
     data: details.filterCalendar,
   });
-
-  const priceNight = addDetail('p', 'price', calendarAndPrice);
-  priceNight.innerText = `${details.details.price} / Nacht`;
 
   const hostImgWrapper = addDetail('div', 'host-img-wrapper', hostDiv);
   const hostImg = addDetail('img', 'host-img', hostImgWrapper);
