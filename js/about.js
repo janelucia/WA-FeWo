@@ -18,23 +18,16 @@ const hostDiv = document.querySelector('.host-div');
 
 // richtige about Seite öffnen
 
-async function getFewoDetails(e) {
+async function renderAboutPage() {
   let params = new URL(document.location).searchParams;
   let id = parseInt(params.get('id'));
   const details = (await csvData(listingCsvUrl)).data[id];
   const getReviews = (await csvData(reviewsCsvUrl)).data;
-  const filteredReviews = getReviews.filter((r) => r.listing_id === details.id);
-  console.log(filteredReviews);
-  return { details, filteredReviews };
-}
-
-let details = getFewoDetails();
-
-// console.log(details);
-
-async function renderAboutPage() {
-  const details = await getFewoDetails();
-  addAboutPageDetails(details);
+  const filterReviews = getReviews.filter((r) => r.listing_id === details.id);
+  const getCalendar = (await csvData(calendarCsvUrl)).data;
+  const filterCalendar = getCalendar.filter((c) => c.listing_id === details.id);
+  console.log(filterCalendar);
+  addAboutPageDetails({ details, filterReviews, filterCalendar });
   document.title = details.name;
 }
 
@@ -119,7 +112,11 @@ async function addAboutPageDetails(details) {
   // information details right side
 
   // calendar
-  renderCalendar();
+  calendarCreate({
+    currMonth: new Date().getMonth(),
+    currYear: new Date().getFullYear(),
+    data: details.filterCalendar,
+  });
 
   const priceNight = addDetail('p', 'price', calendarAndPrice);
   priceNight.innerText = `${details.details.price} / Nacht`;
@@ -166,7 +163,7 @@ async function addAboutPageDetails(details) {
 
   const reviewList = addDetail('div', 'review-list', reviewsDiv);
 
-  const reviewsValue = Object.values(details.filteredReviews);
+  const reviewsValue = Object.values(details.filterReviews);
 
   reviewsValue.slice(0, 3).map((r) => {
     const oneReviewDiv = addDetail('div', 'one-review-wrapper', reviewList);

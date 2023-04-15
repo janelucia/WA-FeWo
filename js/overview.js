@@ -7,7 +7,6 @@ async function renderOverviewPage() {
   const details = (await csvData(listingCsvUrl)).data;
   for (let i = 0; i <= 10; i++) {
     const fewo = details[i];
-    console.log(fewo);
     addOverviewDetail(fewo, i);
   }
 }

@@ -1,16 +1,45 @@
+// add static information
+
+const week = [
+  'Montag',
+  'Dienstag',
+  'Mittwoch',
+  'Donnerstag',
+  'Freitag',
+  'Samstag',
+  'Sonntag',
+];
+
+const calendarWrapper = addDetail('div', 'calendar-wrapper', calendarAndPrice);
+const calendarHead = addDetail('div', 'calendar-head', calendarWrapper);
+const headTitle = addDetail('p', null, calendarHead);
+
+const iconWrapper = addDetail('div', 'icons', calendarHead);
+const chevronLeft = addDetail('span', 'material-symbols-rounded', iconWrapper);
+chevronLeft.setAttribute('id', 'prev');
+chevronLeft.innerText = 'chevron_left';
+
+const chevronRight = addDetail('span', 'material-symbols-rounded', iconWrapper);
+chevronRight.setAttribute('id', 'next');
+chevronRight.innerText = 'chevron_right';
+
+const calendarBody = addDetail('div', 'calendar-body', calendarWrapper);
+const weekList = addDetail('ul', 'weeks', calendarBody);
+
+const dayList = addDetail('ul', 'days', calendarBody);
+
+week.map((day) => {
+  const dayLi = addDetail('li', null, weekList);
+  dayLi.innerText = day.slice(0, 2);
+});
+
 // calendar Funktion
 
-function calendarCreate(selectMonth) {
-  let date = new Date();
-  let currYear = date.getFullYear();
-  let currMonth = selectMonth ? selectMonth : date.getMonth();
-  let lastMonth = selectMonth ? selectMonth : date.getMonth() - 1;
-  let nextMonth = selectMonth ? selectMonth : date.getMonth() + 1;
+function calendarCreate(month) {
+  let currYear = month.currYear;
+  let currMonth = month.currMonth;
   let firstDateOfMonth = new Date(currYear, currMonth, 1);
   let firstDayIndexOfMonth = firstDateOfMonth.getDay() - 1;
-
-  console.log(lastMonth);
-  console.log(nextMonth);
 
   const months = [
     'Januar',
@@ -27,23 +56,9 @@ function calendarCreate(selectMonth) {
     'Dezember',
   ];
 
-  const week = [
-    'Montag',
-    'Dienstag',
-    'Mittwoch',
-    'Donnerstag',
-    'Freitag',
-    'Samstag',
-    'Sonntag',
-  ];
-
   let currentMonth = months[currMonth];
   let lastDateOfCurrMonth = new Date(currYear, currMonth + 1, 0).getDate(); //get last date of the month
-  let lastDateOfLastMonth = new Date(currYear, lastMonth + 1, 0).getDate();
-
-  console.log('last day of last month' + lastDateOfLastMonth);
-  console.log('last day of curr month' + lastDateOfCurrMonth);
-  console.log(firstDayIndexOfMonth);
+  let lastDateOfLastMonth = new Date(currYear, currMonth, 0).getDate();
 
   const dayOverflow = lastDateOfLastMonth - firstDayIndexOfMonth;
 
@@ -54,64 +69,34 @@ function calendarCreate(selectMonth) {
     lastMonthDayArr.push(i + 1);
   }
 
-  console.log(lastMonthDayArr);
-
   for (let i = 1; i <= lastDateOfCurrMonth; i++) {
     currMonthDayArr[i - 1] = i;
   }
 
-  return {
-    currentYear: currYear,
+  renderCalendar({
+    currYear,
     currMonth,
     currentMonth,
     week,
     currMonthDayArr,
     lastMonthDayArr,
-  };
+  });
 }
 
-// calendar render
+// dynamically change the calendar
 
-function renderCalendar() {
-  const calendarObj = calendarCreate();
+function renderCalendar(month) {
+  headTitle.innerText = `${month.currentMonth} ${month.currYear}`;
 
-  const calendarWrapper = addDetail(
-    'div',
-    'calendar-wrapper',
-    calendarAndPrice
-  );
-  const calendarHead = addDetail('div', 'calendar-head', calendarWrapper);
-  const headTitle = addDetail('p', null, calendarHead);
-  headTitle.innerText = `${calendarObj.currentMonth} ${calendarObj.currentYear}`;
-  const iconWrapper = addDetail('div', 'icons', calendarHead);
-  const chevronLeft = addDetail(
-    'span',
-    'material-symbols-rounded',
-    iconWrapper
-  );
-  chevronLeft.setAttribute('id', 'prev');
-  chevronLeft.innerText = 'chevron_left';
-  const chevronRight = addDetail(
-    'span',
-    'material-symbols-rounded',
-    iconWrapper
-  );
-  chevronRight.setAttribute('id', 'next');
-  chevronRight.innerText = 'chevron_right';
+  // Clear previously rendered calendar days
+  dayList.innerHTML = '';
 
-  const calendarBody = addDetail('div', 'calendar-body', calendarWrapper);
-  const weekList = addDetail('ul', 'weeks', calendarBody);
-  calendarObj.week.map((day) => {
-    const dayLi = addDetail('li', null, weekList);
-    dayLi.innerText = day.slice(0, 2);
-  });
-
-  const dayList = addDetail('ul', 'days', calendarBody);
-  calendarObj.lastMonthDayArr.map((date) => {
+  month.lastMonthDayArr.map((date) => {
     const dayLi = addDetail('li', 'inactive', dayList);
     dayLi.innerText = date;
   });
-  calendarObj.currMonthDayArr.map((date) => {
+
+  month.currMonthDayArr.map((date) => {
     const dayLi = addDetail('li', null, dayList);
     dayLi.innerText = date;
 
@@ -124,4 +109,25 @@ function renderCalendar() {
       }
     }
   });
+
+  // Event listener
+  const chevronLeftListener = () => {
+    chevronLeft.removeEventListener('click', chevronLeftListener);
+    chevronRight.removeEventListener('click', chevronRightListener);
+    const currMonth = month.currMonth - 1 >= 0 ? month.currMonth - 1 : 11;
+    const currYear = currMonth === 11 ? month.currYear - 1 : month.currYear;
+    calendarCreate({ currMonth, currYear });
+  };
+
+  const chevronRightListener = () => {
+    chevronLeft.removeEventListener('click', chevronLeftListener);
+    chevronRight.removeEventListener('click', chevronRightListener);
+    const currMonth = month.currMonth + 1 > 11 ? 0 : month.currMonth + 1;
+    const currYear = currMonth === 0 ? month.currYear + 1 : month.currYear;
+    calendarCreate({ currMonth, currYear });
+  };
+
+  chevronLeft.addEventListener('click', chevronLeftListener);
+
+  chevronRight.addEventListener('click', chevronRightListener);
 }
