@@ -158,36 +158,23 @@ async function addAboutPageDetails(details) {
   const reviewTitle = addDetail('h2', null, reviewHeader);
   reviewTitle.innerText = `${details.details.number_of_reviews} Bewertungen`;
 
-  let moreReviews = false;
-
   const linkReviewsDiv = addDetail('div', 'link-reviews', reviewHeader);
   const linkReviews = addDetail('a', null, linkReviewsDiv);
   linkReviews.innerText = 'Mehr anzeigen';
   const linkIcon = addDetail('p', 'material-symbols-rounded', linkReviewsDiv);
   linkIcon.innerText = 'chevron_right';
-  linkReviews.addEventListener('click', () => (moreReviews ? false : true));
 
   const reviewList = addDetail('div', 'review-list', reviewsDiv);
 
   const reviewsValue = Object.values(details.filteredReviews);
 
-  if (!moreReviews) {
-    reviewsValue.slice(0, 3).map((r) => {
-      const oneReviewDiv = addDetail('div', 'one-review-wrapper', reviewList);
-      const author = addDetail('p', 'author', oneReviewDiv);
-      author.innerText = r.reviewer_name;
-      const reviewText = addDetail('p', null, oneReviewDiv);
-      reviewText.innerText = r.comments;
-    });
-  } else {
-    reviewsValue.map((r) => {
-      const oneReviewDiv = addDetail('div', 'one-review-wrapper', reviewList);
-      const author = addDetail('p', 'author', oneReviewDiv);
-      author.innerText = r.reviewer_name;
-      const reviewText = addDetail('p', null, oneReviewDiv);
-      reviewText.innerText = r.comments;
-    });
-  }
+  reviewsValue.slice(0, 3).map((r) => {
+    const oneReviewDiv = addDetail('div', 'one-review-wrapper', reviewList);
+    const author = addDetail('p', 'author', oneReviewDiv);
+    author.innerText = r.reviewer_name;
+    const reviewText = addDetail('p', null, oneReviewDiv);
+    reviewText.innerText = r.comments;
+  });
 
   detailsHeader.appendChild(fewoHeader);
 }

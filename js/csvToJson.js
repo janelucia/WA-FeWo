@@ -1,9 +1,16 @@
+// const listingCsvUrl =
+//   'https://wa.pages.iue.fh-kiel.de/inside-airbnb-data/Amsterdam/listings.csv.gz';
+// const calendarCsvUrl =
+//   'https://wa.pages.iue.fh-kiel.de/inside-airbnb-data/Amsterdam/calendar.csv.gz';
+// const reviewsCsvUrl =
+//   'https://wa.pages.iue.fh-kiel.de/inside-airbnb-data/Amsterdam/reviews.csv.gz';
+
 const listingCsvUrl =
-  'https://wa.pages.iue.fh-kiel.de/inside-airbnb-data/Amsterdam/listings.csv.gz';
+  'http://data.insideairbnb.com/the-netherlands/north-holland/amsterdam/2023-03-09/data/listings.csv.gz';
 const calendarCsvUrl =
-  'https://wa.pages.iue.fh-kiel.de/inside-airbnb-data/Amsterdam/calendar.csv.gz';
+  'http://data.insideairbnb.com/the-netherlands/north-holland/amsterdam/2023-03-09/data/calendar.csv.gz';
 const reviewsCsvUrl =
-  'https://wa.pages.iue.fh-kiel.de/inside-airbnb-data/Amsterdam/reviews.csv.gz';
+  'http://data.insideairbnb.com/the-netherlands/north-holland/amsterdam/2023-03-09/data/reviews.csv.gz';
 
 async function csvData(url) {
   const response = await fetch(url);
