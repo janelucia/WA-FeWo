@@ -15,14 +15,18 @@ const priceStart = document.getElementById('price-start');
 const priceEndWrapper = document.querySelector('.price-end');
 const priceEnd = document.getElementById('price-end');
 const filterButton = document.getElementById('filter-btn');
+const sortReviewWrapper = document.querySelector('.sort-review');
+const sortPriceWrapper = document.querySelector('.sort-price');
+
+const fewoToShow = 10;
 
 // Functions
 
 async function renderOverviewPage() {
-  console.log('Hallo');
   const details = (await csvData(listingCsvUrl)).data;
   addFilterDetails(details);
-  for (let i = 0; i <= 10; i++) {
+  addSortDetails(details);
+  for (let i = 0; i <= fewoToShow; i++) {
     const fewo = details[i];
     addOverviewDetail(fewo);
   }
@@ -151,6 +155,96 @@ function addFilterDetails(details) {
   });
 }
 
+// add sort details
+function addSortDetails(details) {
+  const sortReviewsAscending = details
+    .filter((d) => !!d.review_scores_value)
+    .sort((a, b) => a.review_scores_value - b.review_scores_value);
+
+  const sortReviewsDescending = details
+    .filter((d) => !!d.review_scores_value)
+    .sort((a, b) => b.review_scores_value - a.review_scores_value);
+
+  const sortPriceAscending = details
+    .filter((d) => !!d.price)
+    .sort((a, b) => {
+      const priceA = cleanNumber(a.price);
+      const priceB = cleanNumber(b.price);
+      return priceA - priceB;
+    });
+  const sortPriceDescending = details
+    .filter((d) => !!d.price)
+    .sort((a, b) => {
+      const priceA = cleanNumber(a.price);
+      const priceB = cleanNumber(b.price);
+      return priceB - priceA;
+    });
+
+  const sortReviewChevron = addDetail(
+    'span',
+    'material-symbols-outlined',
+    sortReviewWrapper
+  );
+  sortReviewChevron.innerText = 'expand_less';
+  sortReviewWrapper.addEventListener('click', () => {
+    if (sortReviewChevron.innerText === 'expand_less') {
+      sortReviewChevron.innerText = 'expand_more';
+      fewoList.innerHTML = '';
+      const length =
+        sortReviewsDescending.length > fewoToShow
+          ? fewoToShow
+          : sortReviewsDescending.length;
+      for (let i = 0; i < length; i++) {
+        const fewo = sortReviewsDescending[i];
+        addOverviewDetail(fewo);
+      }
+    } else {
+      sortReviewChevron.innerText = 'expand_less';
+      fewoList.innerHTML = '';
+      const length =
+        sortReviewsAscending.length > fewoToShow
+          ? fewoToShow
+          : sortReviewsAscending.length;
+      for (let i = 0; i < length; i++) {
+        const fewo = sortReviewsAscending[i];
+        addOverviewDetail(fewo);
+      }
+    }
+  });
+
+  const sortPriceChevron = addDetail(
+    'span',
+    'material-symbols-outlined',
+    sortPriceWrapper
+  );
+  sortPriceChevron.innerText = 'expand_less';
+  sortPriceWrapper.addEventListener('click', () => {
+    if (sortPriceChevron.innerText === 'expand_less') {
+      sortPriceChevron.innerText = 'expand_more';
+      fewoList.innerHTML = '';
+      const length =
+        sortPriceDescending.length > fewoToShow
+          ? fewoToShow
+          : sortPriceDescending.length;
+      for (let i = 0; i < length; i++) {
+        const fewo = sortPriceDescending[i];
+        addOverviewDetail(fewo);
+      }
+    } else {
+      sortPriceChevron.innerText = 'expand_less';
+      fewoList.innerHTML = '';
+      const length =
+        sortPriceAscending.length > fewoToShow
+          ? fewoToShow
+          : sortPriceAscending.length;
+      for (let i = 0; i < length; i++) {
+        const fewo = sortPriceAscending[i];
+        addOverviewDetail(fewo);
+      }
+    }
+  });
+}
+
 // add Overview Details
 
 function addOverviewDetail(fewo) {
@@ -224,27 +318,19 @@ function filterFewo(details) {
     )
     .filter(
       (d) =>
-        d.review_scores_value >= reviewScoreStart.value &&
-        d.review_scores_value <= reviewScoreEnd.value
+        Math.round(d.review_scores_value) >= reviewScoreStart.value &&
+        Math.round(d.review_scores_value) <= reviewScoreEnd.value
     )
     .filter(
       (d) =>
-        cleanNumber(d.price) >= priceStart.value &&
-        cleanNumber(d.price) <= priceEnd.value
+        Math.round(cleanNumber(d.price)) >= priceStart.value &&
+        Math.round(cleanNumber(d.price)) <= priceEnd.value
     );
 
-  // Bewertung
+  const length =
+    filteredLength.length > fewoToShow ? fewoToShow : filteredLength.length;
 
-  // Sortierung Bewertung
-  // Preis Bewertung
-
-  // filteredDetails.map((m) => m.name).forEach(console.log);
-  // filteredDetails.forEach((d) => {
-  //   console.log(d.name);
-  // });
-
-  console.log(filteredDetails);
-  for (let i = 0; i < filteredDetails.length; i++) {
+  for (let i = 0; i < length; i++) {
     const fewo = filteredDetails[i];
     addOverviewDetail(fewo);
   }

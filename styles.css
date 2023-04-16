@@ -88,6 +88,27 @@ footer {
   border-radius: 8px;
 }
 
+.fewo-list-sort {
+  display: flex;
+  flex-direction: column;
+}
+
+.sort {
+  display: flex;
+  gap: 8px;
+  align-self: flex-end;
+}
+
+.sort-review {
+  display: flex;
+  align-items: center;
+}
+
+.sort-price {
+  display: flex;
+  align-items: center;
+}
+
 .fewo-list {
   display: flex;
   flex-wrap: wrap;
