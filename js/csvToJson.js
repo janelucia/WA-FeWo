@@ -1,9 +1,9 @@
 // const listingCsvUrl =
-//   'https://wa.pages.iue.fh-kiel.de/inside-airbnb-data/Amsterdam/listings.csv.gz';
+//   'https://wa.pages.iue.fh-kiel.de/i2-schoenfeld-koehrsen/csv/listings.csv.gz';
 // const calendarCsvUrl =
-//   'https://wa.pages.iue.fh-kiel.de/inside-airbnb-data/Amsterdam/calendar.csv.gz';
+//   'https://wa.pages.iue.fh-kiel.de/i2-schoenfeld-koehrsen/csv/calendar.csv.gz';
 // const reviewsCsvUrl =
-//   'https://wa.pages.iue.fh-kiel.de/inside-airbnb-data/Amsterdam/reviews.csv.gz';
+//   'https://wa.pages.iue.fh-kiel.de/i2-schoenfeld-koehrsen/csv/reviews.csv.gz';
 
 const listingCsvUrl =
   'http://data.insideairbnb.com/united-states/or/salem-or/2023-03-26/data/listings.csv.gz';

@@ -23,7 +23,15 @@ const fewoToShow = 10;
 // Functions
 
 async function renderOverviewPage() {
-  const details = (await csvData(listingCsvUrl)).data;
+  const details = (await csvData(listingCsvUrl)).data.filter(
+    (d) =>
+      d.name &&
+      d.neighbourhood_cleansed &&
+      d.room_type &&
+      d.review_scores_value &&
+      d.price
+  );
+  console.log(details);
   addFilterDetails(details);
   addSortDetails(details);
   for (let i = 0; i <= fewoToShow; i++) {
@@ -57,6 +65,7 @@ function addFilterDetails(details) {
   const roomType = [
     ...new Set(details.map((d) => d.room_type).filter((d) => !!d)),
   ];
+  console.log(details[116]);
 
   const priceSortAscending = [
     ...new Set(details.map((d) => d.price).filter((d) => !!d)),
@@ -212,6 +221,9 @@ function addSortDetails(details) {
     }
   });
 
+  const sortReviews = addDetail('p', null, sortPriceWrapper);
+  sortReviews.innerText = 'Bewertungen';
+
   const sortPriceChevron = addDetail(
     'span',
     'material-symbols-outlined',
@@ -243,6 +255,9 @@ function addSortDetails(details) {
       }
     }
   });
+
+  const sortPrice = addDetail('p', null, sortPriceWrapper);
+  sortPrice.innerText = 'Preis';
 }
 
 // add Overview Details
@@ -290,23 +305,13 @@ function addOverviewDetail(fewo) {
   fewoDetailsLink.setAttribute('href', `./about.html?id=${fewo.id}`);
 }
 
+// add filter functionality
+
 function filterFewo(details) {
   const typeCheckbox = document.getElementsByClassName('type-checkbox');
   const checkedCheckboxes = [...typeCheckbox].filter((c) => c.checked);
 
-  // Name der Unterkunft
-  // Stadtteil
-  // Typ der Unterkunft
-  // Preis
   const filteredDetails = details
-    .filter(
-      (d) =>
-        d.name &&
-        d.neighbourhood_cleansed &&
-        d.room_type &&
-        d.review_scores_value &&
-        d.price
-    )
     .filter((d) => d.name.includes(inputSearchName.value))
     .filter(
       (d) =>
@@ -328,8 +333,11 @@ function filterFewo(details) {
     );
 
   const length =
-    filteredLength.length > fewoToShow ? fewoToShow : filteredLength.length;
+    filteredDetails.length > fewoToShow ? fewoToShow : filteredDetails.length;
 
+  sortReviewWrapper.innerHTML = '';
+  sortPriceWrapper.innerHTML = '';
+  addSortDetails(filteredDetails);
   for (let i = 0; i < length; i++) {
     const fewo = filteredDetails[i];
     addOverviewDetail(fewo);
