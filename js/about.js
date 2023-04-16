@@ -13,6 +13,8 @@ const informationRight = document.querySelector('.info-right');
 const calendarWrapper = document.querySelector('.calendar-wrapper');
 const reviewsDiv = document.querySelector('.reviews-div');
 const hostDiv = document.querySelector('.host-div');
+const smallMap = document.getElementById('small-map');
+const bigMap = document.getElementById('big-map');
 
 // Functions
 
@@ -70,7 +72,7 @@ async function addAboutPageDetails(details) {
   neighborhood.innerText = `🌆 ${details.details.neighbourhood_cleansed}`;
 
   const typeAccommodation = addDetail('span', null, characteristicsDiv);
-  typeAccommodation.innerText = `🏠 ${details.details.property_type}`;
+  typeAccommodation.innerText = `🏠 ${details.details.room_type}`;
 
   const maxGuests = addDetail('span', null, characteristicsDiv);
   maxGuests.innerText = `🧑 max. ${details.details.accommodates} Guests`;
@@ -116,6 +118,19 @@ async function addAboutPageDetails(details) {
     neighbourrhoodInformation
   );
   neighbourhoodDescription.innerHTML = details.details.neighborhood_overview;
+
+  const latitude = details.details.latitude;
+  const longitude = details.details.longitude;
+
+  smallMap.setAttribute(
+    'src',
+    `https://www.openstreetmap.org/export/embed.html?bbox=${longitude},${latitude},${longitude},${latitude}&amp;layer=mapnik&marker=${latitude},${longitude}`
+  );
+
+  bigMap.setAttribute(
+    'href',
+    `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=13/${latitude}/${longitude}`
+  );
 
   // information details right side
 
@@ -170,12 +185,38 @@ async function addAboutPageDetails(details) {
 
   const reviewsValue = Object.values(details.filterReviews);
 
-  reviewsValue.slice(0, 3).map((r) => {
+  reviewsValue.slice(0, 4).map((r) => {
     const oneReviewDiv = addDetail('div', 'one-review-wrapper', reviewList);
     const author = addDetail('p', 'author', oneReviewDiv);
     author.innerText = r.reviewer_name;
     const reviewText = addDetail('p', null, oneReviewDiv);
     reviewText.innerText = r.comments;
+  });
+
+  linkReviewsDiv.addEventListener('click', () => {
+    if (linkReviews.innerText === 'Mehr anzeigen') {
+      reviewList.innerHTML = '';
+      reviewsValue.map((r) => {
+        const oneReviewDiv = addDetail('div', 'one-review-wrapper', reviewList);
+        const author = addDetail('p', 'author', oneReviewDiv);
+        author.innerText = r.reviewer_name;
+        const reviewText = addDetail('p', null, oneReviewDiv);
+        reviewText.innerHTML = r.comments;
+      });
+      linkReviews.innerText = 'Weniger anzeigen';
+      linkIcon.innerText = 'chevron_left';
+    } else {
+      reviewList.innerHTML = '';
+      reviewsValue.slice(0, 4).map((r) => {
+        const oneReviewDiv = addDetail('div', 'one-review-wrapper', reviewList);
+        const author = addDetail('p', 'author', oneReviewDiv);
+        author.innerText = r.reviewer_name;
+        const reviewText = addDetail('p', null, oneReviewDiv);
+        reviewText.innerHTML = r.comments;
+      });
+      linkReviews.innerText = 'Mehr anzeigen';
+      linkIcon.innerText = 'chevron_right';
+    }
   });
 
   detailsHeader.appendChild(fewoHeader);

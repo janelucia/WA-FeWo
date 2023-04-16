@@ -95,6 +95,7 @@ footer {
   padding: 4px 16px;
   border-radius: 8px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .fewo-list-sort {
@@ -111,11 +112,13 @@ footer {
 .sort-review {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .sort-price {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 div.toggle {
@@ -224,6 +227,7 @@ a.back-btn {
   background-color: #ecb151;
   border: none;
   padding: 8px 16px;
+  cursor: pointer;
 }
 
 .about-main {
@@ -486,6 +490,7 @@ a.back-btn {
 .link-reviews {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .back-btn {
@@ -531,6 +536,12 @@ a.back-btn {
 
   .review-list {
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .one-review-wrapper {
+    width: 40%;
   }
 
   .all-filter-wrapper {

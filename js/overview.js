@@ -18,7 +18,7 @@ const filterButton = document.getElementById('filter-btn');
 const sortReviewWrapper = document.querySelector('.sort-review');
 const sortPriceWrapper = document.querySelector('.sort-price');
 
-const fewoToShow = 10;
+const fewoToShow = 100;
 
 // Functions
 
@@ -281,7 +281,7 @@ function addOverviewDetail(fewo) {
   fewoName.innerText = fewo.name;
 
   const fewoTyp = addDetail('p', null, fewoListInfo);
-  fewoTyp.innerText = fewo.property_type;
+  fewoTyp.innerText = fewo.room_type;
 
   const fewoOrt = addDetail('p', null, fewoListInfo);
   fewoOrt.innerText = fewo.neighbourhood_cleansed;
