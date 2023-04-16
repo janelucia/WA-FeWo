@@ -191,18 +191,14 @@ span {
 }
 
 .fewo-header {
-  position: absolute;
-  background-color: #4cabbcf1;
   padding: 8px;
-  top: 0;
-  left: 0;
-  transform: translateY(215%) translateX(15%);
   border-radius: 8px;
+  background-color: #4cabbcf1;
 }
 
 .fewo-header h1 {
   margin: 0;
-  font-weight: 400;
+  font-weight: bold;
   color: white;
 }
 
@@ -519,7 +515,14 @@ a.back-btn {
   }
 
   .fewo-header {
+    position: absolute;
+    top: 0;
+    left: 0;
     transform: translateY(175%) translateX(8%);
+  }
+
+  .fewo-header h1 {
+    font-weight: 400;
   }
 
   .info-right {
