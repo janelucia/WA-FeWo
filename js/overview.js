@@ -337,6 +337,11 @@ function filterFewo(details) {
         Math.round(cleanNumber(d.price)) <= priceEnd.value
     );
 
+  if (filteredDetails.length === 0) {
+    emptyFilterArr();
+    return;
+  }
+
   const length =
     filteredDetails.length > fewoToShow ? fewoToShow : filteredDetails.length;
 
@@ -347,4 +352,21 @@ function filterFewo(details) {
     const fewo = filteredDetails[i];
     addOverviewDetail(fewo);
   }
+}
+
+// show if filter returns nothing
+
+function emptyFilterArr() {
+  const fewoDiv = addDetail('div', 'fewo-list-empty', fewoList);
+
+  const emptyHeader = addDetail('h2', 'empty-header', fewoDiv);
+  emptyHeader.innerText = 'Ohhh nein!';
+
+  const emptyParagraph = addDetail('p', 'empty-paragraph', fewoDiv);
+  emptyParagraph.innerText =
+    'Entschuldige, wir haben leider keine passenden Ferienwohnungen für dich gefunden.';
+
+  const backBtn = addDetail('a', 'back-btn', fewoDiv);
+  backBtn.innerText = 'alle Ferienwohnungen anzeigen';
+  backBtn.setAttribute('href', '/index.html');
 }

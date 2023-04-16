@@ -89,11 +89,7 @@ footer {
 
 .filter-btn {
   height: 50%;
-  background: linear-gradient(
-    90deg,
-    rgba(160, 217, 149, 1) 0%,
-    rgba(50, 193, 22, 1) 70%
-  );
+  background: #6cc4a1;
   align-self: flex-end;
   border: none;
   padding: 4px 16px;
@@ -124,6 +120,7 @@ footer {
 
 div.toggle {
   font-weight: bold;
+  color: #448d9a;
 }
 
 .fewo-list {
@@ -209,6 +206,30 @@ span {
   color: white;
 }
 
+.fewo-list-empty {
+  font-weight: bold;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  justify-content: center;
+  align-items: center;
+}
+
+.fewo-list-empty h2 {
+  font-size: x-large;
+}
+
+.fewo-list-empty p {
+  font-size: large;
+}
+
+a.back-btn {
+  background-color: #ecb151;
+  border: none;
+  padding: 8px 16px;
+}
+
 .about-main {
   display: flex;
   flex-direction: column;
@@ -261,8 +282,6 @@ span {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 500px;
-  overflow: hidden;
 }
 
 .features-list li {
