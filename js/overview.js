@@ -19,11 +19,12 @@ const filterButton = document.getElementById('filter-btn');
 // Functions
 
 async function renderOverviewPage() {
+  console.log('Hallo');
   const details = (await csvData(listingCsvUrl)).data;
   addFilterDetails(details);
   for (let i = 0; i <= 10; i++) {
     const fewo = details[i];
-    addOverviewDetail(fewo, i);
+    addOverviewDetail(fewo);
   }
 }
 
@@ -53,11 +54,6 @@ function addFilterDetails(details) {
     ...new Set(details.map((d) => d.room_type).filter((d) => !!d)),
   ];
 
-  const review = [
-    ...new Set(details.map((b) => b.review_scores_value).filter((d) => !!d)),
-  ];
-  console.log(review);
-
   const priceSortAscending = [
     ...new Set(details.map((d) => d.price).filter((d) => !!d)),
   ].sort((a, b) => {
@@ -77,15 +73,16 @@ function addFilterDetails(details) {
   });
 
   roomType.map((t) => {
-    const typeCheckbox = addDetail('input', null, fewoTypeWrapper);
+    const typeCheckbox = addDetail('input', 'type-checkbox', fewoTypeWrapper);
     typeCheckbox.setAttribute('type', 'checkbox');
     typeCheckbox.setAttribute('id', `check-${t}`);
+    typeCheckbox.setAttribute('checked', 'checked');
     const labelCheckbox = addDetail('label', null, fewoTypeWrapper);
     labelCheckbox.setAttribute('for', `check-${t}`);
     labelCheckbox.innerText = t;
   });
 
-  function addStars(e) {
+  function displayStars(e) {
     let stars = '';
     for (let i = 1; i <= e; i++) {
       stars += '★';
@@ -103,8 +100,9 @@ function addFilterDetails(details) {
   reviewScoreStart.setAttribute('value', 1);
   labelReviewScoreStart.innerText = '★';
   reviewScoreStart.addEventListener('input', (e) => {
-    let stars = addStars(e.target.value);
+    let stars = displayStars(e.target.value);
     labelReviewScoreStart.innerText = stars;
+    reviewScoreStart.setAttribute('value', e.target.value);
   });
 
   reviewScoreEnd.setAttribute('min', 1);
@@ -113,8 +111,9 @@ function addFilterDetails(details) {
   const labelReviewScoreEnd = addDetail('label', null, reviewScoreEndWrapper);
   labelReviewScoreEnd.innerText = '★★★★★';
   reviewScoreEnd.addEventListener('input', (e) => {
-    let stars = addStars(e.target.value);
+    let stars = displayStars(e.target.value);
     labelReviewScoreEnd.innerText = stars;
+    reviewScoreEnd.setAttribute('value', e.target.value);
   });
 
   priceStart.setAttribute('min', cleanNumber(priceSortAscending[0]));
@@ -125,10 +124,10 @@ function addFilterDetails(details) {
   priceStart.setAttribute('value', cleanNumber(priceSortAscending[0]));
   const labelPriceStart = addDetail('label', null, priceStartWrapper);
   labelPriceStart.innerText = `$${priceStart.value}`;
-  priceStart.addEventListener(
-    'input',
-    (e) => (labelPriceStart.innerText = `$${e.target.value}`)
-  );
+  priceStart.addEventListener('input', (e) => {
+    labelPriceStart.innerText = `$${e.target.value}`;
+    priceStart.setAttribute('value', e.target.value);
+  });
 
   priceEnd.setAttribute('min', cleanNumber(priceSortAscending[0]));
   priceEnd.setAttribute(
@@ -141,10 +140,10 @@ function addFilterDetails(details) {
   );
   const labelPriceEnd = addDetail('label', null, priceEndWrapper);
   labelPriceEnd.innerText = `$${priceEnd.value}`;
-  priceEnd.addEventListener(
-    'input',
-    (e) => (labelPriceEnd.innerText = `$${e.target.value}`)
-  );
+  priceEnd.addEventListener('input', (e) => {
+    labelPriceEnd.innerText = `$${e.target.value}`;
+    priceEnd.setAttribute('value', e.target.value);
+  });
 
   filterButton.addEventListener('click', () => {
     fewoList.innerHTML = '';
@@ -154,7 +153,7 @@ function addFilterDetails(details) {
 
 // add Overview Details
 
-function addOverviewDetail(fewo, i) {
+function addOverviewDetail(fewo) {
   const fewoDiv = addDetail('div', 'fewo-list-item-wrapper', fewoList);
 
   const fewoImageWrapper = addDetail('div', 'fewo-img-wrapper', fewoDiv);
@@ -180,7 +179,7 @@ function addOverviewDetail(fewo, i) {
 
   const fewoStarsDiv = addDetail('div', null, fewoPreisStars);
 
-  for (let i = 1; i < fewo.review_scores_value; i++) {
+  for (let i = 0; i < fewo.review_scores_value; i++) {
     const fewoBewertung = addDetail('span', null, fewoStarsDiv);
     fewoBewertung.innerText = '★';
   }
@@ -194,11 +193,17 @@ function addOverviewDetail(fewo, i) {
 
   const fewoDetailsLink = addDetail('a', 'details-bnt', fewoDiv);
   fewoDetailsLink.innerText = 'mehr anzeigen';
-  fewoDetailsLink.setAttribute('href', `./about.html?id=${i}`);
+  fewoDetailsLink.setAttribute('href', `./about.html?id=${fewo.id}`);
 }
 
 function filterFewo(details) {
+  const typeCheckbox = document.getElementsByClassName('type-checkbox');
+  const checkedCheckboxes = [...typeCheckbox].filter((c) => c.checked);
+
   // Name der Unterkunft
+  // Stadtteil
+  // Typ der Unterkunft
+  // Preis
   const filteredDetails = details
     .filter(
       (d) =>
@@ -213,11 +218,23 @@ function filterFewo(details) {
       (d) =>
         d.neighbourhood_cleansed === selectSearchNeighbourhood.value ||
         !selectSearchNeighbourhood.value
+    )
+    .filter((d) =>
+      checkedCheckboxes.some((c) => c.labels[0].innerText === d.room_type)
+    )
+    .filter(
+      (d) =>
+        d.review_scores_value >= reviewScoreStart.value &&
+        d.review_scores_value <= reviewScoreEnd.value
+    )
+    .filter(
+      (d) =>
+        cleanNumber(d.price) >= priceStart.value &&
+        cleanNumber(d.price) <= priceEnd.value
     );
-  // Stadtteil
-  // Typ der Unterkunft
+
   // Bewertung
-  // Preis
+
   // Sortierung Bewertung
   // Preis Bewertung
 
@@ -229,6 +246,6 @@ function filterFewo(details) {
   console.log(filteredDetails);
   for (let i = 0; i < filteredDetails.length; i++) {
     const fewo = filteredDetails[i];
-    addOverviewDetail(fewo, i);
+    addOverviewDetail(fewo);
   }
 }

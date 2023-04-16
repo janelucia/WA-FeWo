@@ -20,14 +20,23 @@ const hostDiv = document.querySelector('.host-div');
 
 async function renderAboutPage() {
   let params = new URL(document.location).searchParams;
-  let id = parseInt(params.get('id'));
-  const details = (await csvData(listingCsvUrl)).data[id];
+  let id = params.get('id');
+  const getDetails = (await csvData(listingCsvUrl)).data;
+  const details = getDetails.filter((d) => id === d.id);
   const getReviews = (await csvData(reviewsCsvUrl)).data;
-  const filterReviews = getReviews.filter((r) => r.listing_id === details.id);
+  const filterReviews = getReviews.filter(
+    (r) => r.listing_id === details[0].id
+  );
   const getCalendar = (await csvData(calendarCsvUrl)).data;
-  const filterCalendar = getCalendar.filter((c) => c.listing_id === details.id);
-  addAboutPageDetails({ details, filterReviews, filterCalendar });
-  document.title = details.name;
+  const filterCalendar = getCalendar.filter(
+    (c) => c.listing_id === details[0].id
+  );
+  addAboutPageDetails({
+    details: details[0],
+    filterReviews,
+    filterCalendar,
+  });
+  document.title = details[0].name;
 }
 
 // hilft beim rendern der Seite
