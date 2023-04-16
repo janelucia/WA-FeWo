@@ -86,11 +86,12 @@ function addFilterDetails(details) {
   });
 
   roomType.map((t) => {
-    const typeCheckbox = addDetail('input', 'type-checkbox', fewoTypeWrapper);
+    const typeWrapper = addDetail('div', 'type-wrapper', fewoTypeWrapper);
+    const typeCheckbox = addDetail('input', 'type-checkbox', typeWrapper);
     typeCheckbox.setAttribute('type', 'checkbox');
     typeCheckbox.setAttribute('id', `check-${t}`);
     typeCheckbox.setAttribute('checked', 'checked');
-    const labelCheckbox = addDetail('label', null, fewoTypeWrapper);
+    const labelCheckbox = addDetail('label', null, typeWrapper);
     labelCheckbox.setAttribute('for', `check-${t}`);
     labelCheckbox.innerText = t;
   });
@@ -196,6 +197,8 @@ function addSortDetails(details) {
   );
   sortReviewChevron.innerText = 'expand_less';
   sortReviewWrapper.addEventListener('click', () => {
+    sortPriceWrapper.classList.remove('toggle');
+    sortReviewWrapper.classList.add('toggle');
     if (sortReviewChevron.innerText === 'expand_less') {
       sortReviewChevron.innerText = 'expand_more';
       fewoList.innerHTML = '';
@@ -221,7 +224,7 @@ function addSortDetails(details) {
     }
   });
 
-  const sortReviews = addDetail('p', null, sortPriceWrapper);
+  const sortReviews = addDetail('p', null, sortReviewWrapper);
   sortReviews.innerText = 'Bewertungen';
 
   const sortPriceChevron = addDetail(
@@ -231,6 +234,8 @@ function addSortDetails(details) {
   );
   sortPriceChevron.innerText = 'expand_less';
   sortPriceWrapper.addEventListener('click', () => {
+    sortReviewWrapper.classList.remove('toggle');
+    sortPriceWrapper.classList.add('toggle');
     if (sortPriceChevron.innerText === 'expand_less') {
       sortPriceChevron.innerText = 'expand_more';
       fewoList.innerHTML = '';
