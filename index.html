@@ -26,10 +26,58 @@
     <header class="header-details">
       <div class="logo">
         <img src="assets/lupe.png" alt="Logo" />
+        <h1>Ferienwohnungen in Salem</h1>
       </div>
     </header>
     <main>
-      <h1>Ferienwohnungen in Salem</h1>
+      <div class="all-filter-wrapper">
+        <div class="search-for-name">
+          <label for="search-for-name">Name der Unterkunft</label>
+          <input
+            id="search-for-name"
+            type="search"
+            name="Name der Ferienwohnung suchen"
+            placeholder="Name der Unterkunft"
+            aria-placeholder="Name der Unterkunft"
+          />
+        </div>
+        <div class="neighbourhood-select">
+          <label for="neighbourhood-select">Stadtteil </label>
+          <select
+            aria-placeholder="Stadtteil aussuchen"
+            name="neighbourhoods"
+            id="neighbourhood-select"
+          >
+            <option value="">Stadtteil auswählen</option>
+          </select>
+        </div>
+        <div class="fewo-type"></div>
+        <div class="review-filter">
+          <label>Bewertung</label>
+          <div class="review-score-start">
+            <label for="review-score-start">Von</label>
+            <input type="range" id="review-score-start" />
+          </div>
+          <div class="review-score-end">
+            <label for="review-score-end">Bis</label>
+            <input type="range" id="review-score-end" />
+          </div>
+        </div>
+        <div class="price-filter">
+          <label>Preis</label>
+          <div class="price-start">
+            <label for="price-start">Von</label>
+            <input type="range" id="price-start" />
+          </div>
+          <div class="price-end">
+            <label for="price-end">Bis</label>
+            <input type="range" id="price-end" />
+          </div>
+        </div>
+        <button class="filter-btn" type="submit" id="filter-btn">
+          Filtern
+        </button>
+      </div>
       <div class="fewo-list"></div>
     </main>
     <footer>Made with ❤️ | by Katharina and Jane</footer>

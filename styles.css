@@ -30,7 +30,6 @@ footer {
   gap: 8px;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2px solid lightblue;
 }
 
 .header-details img {
@@ -61,6 +60,34 @@ footer {
   align-items: center;
 }
 
+.all-filter-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 2px solid #4cacbc;
+  padding: 16px 8px;
+}
+
+.search-for-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.neighbourhood-select {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-btn {
+  height: 50%;
+  background-color: #a0d995;
+  align-self: flex-end;
+  padding: 4px 16px;
+  border: #6cc4a1 1px;
+  border-radius: 8px;
+}
+
 .fewo-list {
   display: flex;
   flex-wrap: wrap;
@@ -80,8 +107,9 @@ footer {
   padding: 4px;
 }
 
-.fewo-list-item-wrapper img {
-  flex: 1;
+.fewo-img-wrapper img {
+  height: 250px;
+  object-fit: cover;
 }
 
 .fewo-list-item-wrapper h2 {
@@ -422,6 +450,10 @@ span {
   background: #a0d995;
   transition: all 0.5s ease-in;
   border-radius: 8px;
+}
+
+#search-for-name {
+  height: 50%;
 }
 
 @media (min-width: 768px) {
