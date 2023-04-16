@@ -6,10 +6,14 @@ const selectSearchNeighbourhood = document.querySelector(
   '#neighbourhood-select'
 );
 const fewoTypeWrapper = document.querySelector('.fewo-type');
-const reviewScoreStart = document.querySelector('.review-score-start');
-const reviewScoreEnd = document.querySelector('.review-score-end');
-const priceStart = document.querySelector('.review-score-start');
-const priceEnd = document.querySelector('.review-score-end');
+const reviewScoreStartWrapper = document.querySelector('.review-score-start');
+const reviewScoreStart = document.getElementById('review-score-start');
+const reviewScoreEndWrapper = document.querySelector('.review-score-end');
+const reviewScoreEnd = document.getElementById('review-score-end');
+const priceStartWrapper = document.querySelector('.price-start');
+const priceStart = document.getElementById('price-start');
+const priceEndWrapper = document.querySelector('.price-end');
+const priceEnd = document.getElementById('price-end');
 const filterButton = document.getElementById('filter-btn');
 
 // Functions
@@ -34,6 +38,10 @@ function addDetail(tagName, className, parent) {
   return detail;
 }
 
+function cleanNumber(num) {
+  return parseFloat(num.replace(/[$,]/g, ''));
+}
+
 // add filter details
 
 function addFilterDetails(details) {
@@ -44,6 +52,19 @@ function addFilterDetails(details) {
   const roomType = [
     ...new Set(details.map((d) => d.room_type).filter((d) => !!d)),
   ];
+
+  const review = [
+    ...new Set(details.map((b) => b.review_scores_value).filter((d) => !!d)),
+  ];
+  console.log(review);
+
+  const priceSortAscending = [
+    ...new Set(details.map((d) => d.price).filter((d) => !!d)),
+  ].sort((a, b) => {
+    const priceA = cleanNumber(a);
+    const priceB = cleanNumber(b);
+    return priceA - priceB;
+  });
 
   neighbourhoods.map((n) => {
     const optionNeighbourhood = addDetail(
@@ -56,7 +77,6 @@ function addFilterDetails(details) {
   });
 
   roomType.map((t) => {
-    console.log(t);
     const typeCheckbox = addDetail('input', null, fewoTypeWrapper);
     typeCheckbox.setAttribute('type', 'checkbox');
     typeCheckbox.setAttribute('id', `check-${t}`);
@@ -65,7 +85,71 @@ function addFilterDetails(details) {
     labelCheckbox.innerText = t;
   });
 
-  filterButton.addEventListener('click', () => filterFewo(details));
+  function addStars(e) {
+    let stars = '';
+    for (let i = 1; i <= e; i++) {
+      stars += '★';
+    }
+    return stars;
+  }
+
+  const labelReviewScoreStart = addDetail(
+    'label',
+    null,
+    reviewScoreStartWrapper
+  );
+  reviewScoreStart.setAttribute('min', 1);
+  reviewScoreStart.setAttribute('max', 5);
+  reviewScoreStart.setAttribute('value', 1);
+  labelReviewScoreStart.innerText = '★';
+  reviewScoreStart.addEventListener('input', (e) => {
+    let stars = addStars(e.target.value);
+    labelReviewScoreStart.innerText = stars;
+  });
+
+  reviewScoreEnd.setAttribute('min', 1);
+  reviewScoreEnd.setAttribute('max', 5);
+  reviewScoreEnd.setAttribute('value', 5);
+  const labelReviewScoreEnd = addDetail('label', null, reviewScoreEndWrapper);
+  labelReviewScoreEnd.innerText = '★★★★★';
+  reviewScoreEnd.addEventListener('input', (e) => {
+    let stars = addStars(e.target.value);
+    labelReviewScoreEnd.innerText = stars;
+  });
+
+  priceStart.setAttribute('min', cleanNumber(priceSortAscending[0]));
+  priceStart.setAttribute(
+    'max',
+    cleanNumber(priceSortAscending[priceSortAscending.length - 1])
+  );
+  priceStart.setAttribute('value', cleanNumber(priceSortAscending[0]));
+  const labelPriceStart = addDetail('label', null, priceStartWrapper);
+  labelPriceStart.innerText = `$${priceStart.value}`;
+  priceStart.addEventListener(
+    'input',
+    (e) => (labelPriceStart.innerText = `$${e.target.value}`)
+  );
+
+  priceEnd.setAttribute('min', cleanNumber(priceSortAscending[0]));
+  priceEnd.setAttribute(
+    'max',
+    cleanNumber(priceSortAscending[priceSortAscending.length - 1])
+  );
+  priceEnd.setAttribute(
+    'value',
+    cleanNumber(priceSortAscending[priceSortAscending.length - 1])
+  );
+  const labelPriceEnd = addDetail('label', null, priceEndWrapper);
+  labelPriceEnd.innerText = `$${priceEnd.value}`;
+  priceEnd.addEventListener(
+    'input',
+    (e) => (labelPriceEnd.innerText = `$${e.target.value}`)
+  );
+
+  filterButton.addEventListener('click', () => {
+    fewoList.innerHTML = '';
+    filterFewo(details);
+  });
 }
 
 // add Overview Details
@@ -114,12 +198,22 @@ function addOverviewDetail(fewo, i) {
 }
 
 function filterFewo(details) {
-  console.log(details);
-
   // Name der Unterkunft
   const filteredDetails = details
-    .filter((d) => d.name)
-    .filter((d) => d.name.includes(inputSearchName.value));
+    .filter(
+      (d) =>
+        d.name &&
+        d.neighbourhood_cleansed &&
+        d.room_type &&
+        d.review_scores_value &&
+        d.price
+    )
+    .filter((d) => d.name.includes(inputSearchName.value))
+    .filter(
+      (d) =>
+        d.neighbourhood_cleansed === selectSearchNeighbourhood.value ||
+        !selectSearchNeighbourhood.value
+    );
   // Stadtteil
   // Typ der Unterkunft
   // Bewertung
@@ -132,5 +226,9 @@ function filterFewo(details) {
   //   console.log(d.name);
   // });
 
-  // console.log(filteredDetails);
+  console.log(filteredDetails);
+  for (let i = 0; i < filteredDetails.length; i++) {
+    const fewo = filteredDetails[i];
+    addOverviewDetail(fewo, i);
+  }
 }
