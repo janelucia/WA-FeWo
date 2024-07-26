@@ -1,0 +1,13 @@
+{
+  "name": "FeWo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "dev": "ws"
+  },
+  "author": "Jane",
+  "devDependencies": {
+    "local-web-server": "5.3.4"
+  }
+}
